@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="stylesheet" href="../css/广场.css">
+</head>
+<body>
+    <div id="app">
+    <ti></ti>
+    </div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script>
+     Vue.component("ti",{
+        template:`    <div class="big-box">
+            <div class="gz">
+                <div class="gz1">关注</div>
+                <div class="gz1">广场</div>
+                <div class="gz1">圈子</div>
+                <div class="gz1">话题</div>
+                <div class="gz1">&gt;</div>
+                <div class="gz2"><img src="../imges/搜索.png" width="100%" alt=""></div>
+            </div>
+            <div class="join">
+                <img src="../imges/加入我们.png" width="100%" alt="">
+            </div>
+            <div class="love">
+                <img src="../imges/喜欢.png" width="100%" alt="">
+            </div>
+            <div class="love1">
+                <div class="love2"><img src="../imges/3.1铃铛.png" width="100%" alt=""></div>
+                <div class="love3">你最喜欢的作者wbilin最近更新了他的《笑吃精彩》小说</div>
+            </div>
+            <div class="nr"><img src="../imges/内容.png" width="100%" alt=""> </div>
+            <div class="shu">
+                <div>
+                    <div class="shu1"><img src="../imges/书架.png" width="100%" alt=""></div>
+                    <div class="shuz">书架</div>
+                </div>
+                <div>
+                    <div class="shu1"><img src="../imges/首页.png" width="100%" alt=""></div>
+                    <div class="shuz">书城</div>
+                </div>
+                <div>
+                    <div class="shu1"><img src="../imges/听书.png" width="100%" alt=""></div>
+                    <div class="shuz">听书</div>
+                </div>
+                <div>
+                    <div class="shu1"><img src="../imges/雷达-发现_o.png" width="100%" alt=""></div>
+                    <div class="shuz">发现</div>
+                </div>
+                <div>
+                    <div class="shu1"><img src="../imges/我的.png" width="100%" alt=""></div>
+                    <div class="shuz">我的</div>
+                </div>
+               
+            </div>
+        </div> `
+     })
+    new Vue({
+        el:"#app"
+    })
+</script>

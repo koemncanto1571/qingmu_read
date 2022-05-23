@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .index {
+      padding: 0 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      margin-bottom: 45px;
+    }
+
+    .nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .nav-list {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .nav-list span {
+      font-size: 12px;
+      font-family: "PingFangSC";
+      font-weight: 600;
+      color: #000;
+    }
+
+    .nav-more {
+      margin-left: 26px;
+    }
+
+    .search {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-input {
+      padding-right: 15px;
+      width: 304px;
+      height: 34px;
+      border: 1px solid #ACA8A9;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input img {
+      margin-left: 17px;
+      margin-right: 27px;
+      width: 17px;
+      height: 17px;
+    }
+
+    .search-input input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      font-size: 11px;
+      font-family: "PingFangSC";
+      font-weight: 400;
+      color: #000000;
+    }
+
+    .banner {
+      margin-top: 10px;
+      width: 344px;
+      height: 105px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .banner img {
+      width: 100%;
+      /* height: 100%; */
+    }
+
+    .list {
+      margin-top: 18px;
+      width: 375px;
+      justify-content: space-between;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .list-item {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .list-item img {
+      width: 42px;
+      height: 42px;
+      margin-bottom: 8px;
+    }
+
+    .list-item span {
+      font-size: 12px;
+      font-family: "PingFangSC";
+      font-weight: 400;
+      color: #000000;
+    }
+
+    .recommend {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .recommend-item {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .item-title {
+      margin-bottom: 16px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .item-title span {
+      font-size: 15px;
+      font-family: "PingFangSC";
+      font-weight: 600;
+      color: #000000;
+    }
+
+    .item-title .more {
+      font-size: 11px;
+      font-family: "PingFangSC";
+      font-weight: 400;
+      color: #000000;
+    }
+
+    .item-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+      width: 345px;
+      height: 314px;
+      background-color: rgba(200, 208, 200, 0.5);
+      border-radius: 10px;
+    }
+
+    .content-item {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .content-item div {
+      width: 74px;
+      height: 110px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .content-item div img {
+      width: 100%;
+    }
+
+    .content-item span {
+      margin-top: 10px;
+      width: 74px;
+      font-size: 10px;
+      font-family: "PingFangSC";
+      font-weight: 400;
+      color: #000000;
+    }
+
+    .tab {
+      position: fixed;
+      bottom: 0;
+      width: 95%;
+      height: 45px;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .tab-item img {
+      width: 24px;
+    }
+
+    .tab-item span {
+      font-size: 10px;
+      font-family: "PingFangSC";
+      font-weight: 400;
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="index">
+    <div class="nav">
+      <div class="nav-list">
+        <span>精选</span>
+        <span>男生</span>
+        <span>女生</span>
+        <span>漫画</span>
+        <span>古代言情</span>
+        <span>VIP专区</span>
+      </div>
+      <div class="nav-more">
+        ...
+      </div>
+    </div>
+    <div class="search">
+      <div class="search-input">
+        <img src="../src/assets/index/放大镜.png" alt="">
+        <input type="text" placeholder="雪中悍刀行——热血江湖情......">
+      </div>
+      <div class="search-btn"></div>
+    </div>
+    <div class="banner">
+      <img src="../src/assets/index/banner1.png" alt="">
+    </div>
+    <div class="list">
+      <div class="list-item">
+        <img src="../src/assets/index/排行榜.png" alt="">
+        <span>排行榜</span>
+      </div>
+      <div class="list-item">
+        <img src="../src/assets/index/排行榜.png" alt="">
+        <span>排行榜</span>
+      </div>
+      <div class="list-item">
+        <img src="../src/assets/index/排行榜.png" alt="">
+        <span>排行榜</span>
+      </div>
+      <div class="list-item">
+        <img src="../src/assets/index/排行榜.png" alt="">
+        <span>排行榜</span>
+      </div>
+      <div class="list-item">
+        <img src="../src/assets/index/排行榜.png" alt="">
+        <span>排行榜</span>
+      </div>
+      <div class="list-item">
+        <img src="../src/assets/index/排行榜.png" alt="">
+        <span>排行榜</span>
+      </div>
+      <div class="list-item">
+        <img src="../src/assets/index/排行榜.png" alt="">
+        <span>排行榜</span>
+      </div>
+      <div class="list-item">
+        <img src="../src/assets/index/排行榜.png" alt="">
+        <span>排行榜</span>
+      </div>
+    </div>
+    <div class="recommend">
+      <div class="recommend-item">
+        <div class="item-title">
+          <span>推荐书籍</span>
+          <div class="more">
+            更多>
+          </div>
+        </div>
+        <div class="item-content">
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="recommend">
+      <div class="recommend-item">
+        <div class="item-title">
+          <span>推荐书籍</span>
+          <div class="more">
+            更多>
+          </div>
+        </div>
+        <div class="item-content">
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+          <div class="content-item">
+            <div>
+              <img src="../src/assets/index/图层31.png" alt="">
+            </div>
+            <span>诡秘之王</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="blank"></div>
+  </div>
+  <div class="tab">
+    <div class="tab-item">
+      <img src="../src/assets/index/首页.png" alt="">
+      <span>首页</span>
+    </div>
+    <div class="tab-item">
+      <img src="../src/assets/index/书架.png" alt="">
+      <span>首页</span>
+    </div>
+    <div class="tab-item">
+      <img src="../src/assets/index/首页.png" alt="">
+      <span>首页</span>
+    </div>
+    <div class="tab-item">
+      <img src="../src/assets/index/首页.png" alt="">
+      <span>首页</span>
+    </div>
+    <div class="tab-item">
+      <img src="../src/assets/index/首页.png" alt="">
+      <span>首页</span>
+    </div>
+  </div>
+</body>
+
+</html>
