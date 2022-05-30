@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import {findUserAPI,modifyUserAPI} from "@/api/index.js"
+import {findUserAPI,modifyUserAPI,updateUserPhoto} from "@/api/index.js"
 import {formatDate} from "@/utils/date.js"
 import { mapMutations } from "vuex";
 import { Notify } from 'vant';
@@ -69,9 +69,7 @@ export default {
       const theFd = new FormData()
       theFd.append('photo', e.target.files[0])
       console.log(theFd);
-      const res =  await modifyUserAPI({
-        file:theFd
-      })
+      const res =  await updateUserPhoto(theFd)
       console.log(res);
     },
     nameClickFn () {

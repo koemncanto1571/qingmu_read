@@ -98,7 +98,6 @@ export const modifyUserAPI = (dataObj)=> {
     nickname:'',
     usersex:'',
     introduction:'',
-    file:''
   }
   for (const prop in obj) {
     if (dataObj[prop] === undefined) {
@@ -110,7 +109,22 @@ export const modifyUserAPI = (dataObj)=> {
   obj.userid=store.state.userId
   return request({
     url:'/readinfo/updatepersonal',
-    method:'post',
+    method:'patch',
     params:obj
   })
 }
+
+export const updateUserPhoto = (fd)=> request({
+  url:'/readinfo/file',
+  method:'post',
+  data:fd
+})
+
+export const loginByPhoneAPI = ({phone,code})=> request({
+  url:'/readinfo/loginSms',
+  method:'post',
+  params:{
+    telephoneLogin:phone,
+    verifyCodeLogin:code
+  }
+})

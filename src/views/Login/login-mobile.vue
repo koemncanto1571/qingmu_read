@@ -9,7 +9,7 @@
       <span>手机号码登录</span>
     </div>
     <van-form>
-      <van-field autofocus v-model="telephone" label="手机号码" placeholder="请输入11位手机号" :rules="[{ required: true, message: '请填写正确手机号', pattern: /^1[3-9]\d{9}$/ }]" v-fofo />
+      <van-field autofocus v-model="telephone" label="手机号码" placeholder="请输入11位手机号" :rules="[{ required: true, message: '请填写正确手机号', pattern: /^1[3-9]\d{9}$/ }]" />
       <van-field v-model="code" center clearable label="短信验证码" placeholder="请输入短信验证码">
         <template #button>
           <van-button size="small" type="primary" v-if="!isSend" @click="codeFn">发送验证码</van-button>
@@ -43,7 +43,7 @@
 
 <script>
 import { Toast } from 'vant';
-import { getPhoneVerification } from "@/api/index.js"
+import { getPhoneVerification,loginByPhoneAPI } from "@/api/index.js"
 export default {
   name: "login-mobile",
   data() {
@@ -78,12 +78,14 @@ export default {
         //   }
 
     },
-    navToUser(){
+   async navToUser(){
       if(this.code.length>0){
         if(this.isAffirm){
-          this.$router.push({
-          name:'User'
+          const res = await loginByPhoneAPI({
+            phone:this.telephone,
+            code:this.code
           })
+          console.log(res);
         }else{
           Toast.fail('请选勾选用户协议');
         }

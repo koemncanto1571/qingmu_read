@@ -15,15 +15,15 @@ module.exports = {
       }
     }
   },
-  // devServer:{
-  //   proxy:{
-  //     '/api':{
-  //       target:'http://124.223.191.233:8090',
-  //       changeOrigin:true,
-  //       pathRewrite: {
-  //         '^/api': '' 
-  //       }
-  //     }
-  //   }
-  // }
+  devServer:{
+    proxy:{
+      '/api':{
+        target:'http://124.223.191.233:8090',
+        changeOrigin:true,
+        pathRewrite: {
+          '^/api': '' 
+        }
+      }
+    }
+  }
 }

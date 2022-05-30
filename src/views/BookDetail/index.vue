@@ -100,6 +100,8 @@ export default {
    async addBookshelf(){
      if(!this.isAdd){
        const res = await addBook({
+         readingtime:0,
+         userid:this.$store.state.userId,
          bookid:this.book.id,
          photos:this.book.cover,
          title:this.book.name

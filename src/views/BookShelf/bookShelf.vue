@@ -37,15 +37,17 @@
         <div class="book-edit" @click="editFn">
           {{edit}}
         </div>
-        <div class="book-item" v-for="(item,index) in allBookshelf" :key="index" @click="navToDetail(item.bookid)">
-          <div class="book-del" v-show="isEdited" @click="delFn(item.bookid)">
-            <van-icon name="cross" size="0.3466rem" />
+        <template v-if="isLoading">
+          <div class="book-item" v-for="(item,index) in allBookshelf" :key="index" @click="navToDetail(item.bookid)">
+            <div class="book-del" v-show="isEdited" @click="delFn(item.bookid)">
+              <van-icon name="cross" size="0.3466rem" />
+            </div>
+            <div class="book-cover">
+              <img :src="item.photos" alt="">
+            </div>
+            <span>{{item.title}}</span>
           </div>
-          <div class="book-cover">
-            <img :src="item.photos" alt="">
-          </div>
-          <span>{{item.title}}</span>
-        </div>
+        </template>
         <div class="content-item" @click="addBook">
           <img src="./images/添加.png" alt="">
           <span>去书城选好书</span>
@@ -62,7 +64,7 @@ import TabList from "@/components/TabList"
 export default {
 name:'BookShelf',
 components:{
-  TabList,
+  TabList
 },
 data() {
   return {
@@ -74,7 +76,8 @@ data() {
     allBookshelf:[],
     allBook:[],
     edit:'编辑',
-    isEdited:false
+    isEdited:false,
+    isLoading:false
   }
 },
 methods:{
@@ -118,6 +121,9 @@ async created() {
   this.allBookshelf = res.data
   const res2 = await getBookInfoAPI()
   this.allBook = res2.data
+  if(this.$store.state.userId !== ''){
+    this.isLoading = true
+  }
 },
 beforeCreate () {
     this.$nextTick(()=>{

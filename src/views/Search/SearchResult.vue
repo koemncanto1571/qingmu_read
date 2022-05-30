@@ -70,9 +70,9 @@ export default {
       margin-right: 13px;
       width: 67px;
       height: 88px;
-      img{
-        width: 100%;
-        height: 100%;
+      img {
+        width: 67px;
+        height: 88px;
       }
     }
     .search-detail{
