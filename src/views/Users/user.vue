@@ -84,7 +84,7 @@
             <img src="./images/右箭头.png" alt="">
           </div>
         </div>
-        <div class="list-item">
+        <div class="list-item" @click="$router.push('/read-history')">
           <span>阅读记录和订阅</span>
           <div>
             <img src="./images/右箭头.png" alt="">

@@ -20,6 +20,7 @@ import LoginAccount from "@/views/Login/login-account.vue"
 import Register from "@/views/Login/register.vue"
 import Search from "@/views/Search/index.vue"
 import SearchResult from "@/views/Search/SearchResult.vue"
+import ReadHistory from "@/views/ReadHistory/index.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -113,6 +114,7 @@ const routes = [
   },
   {
     path:'/vip',
+    meta:{index:1},
     component:Vip
   },
   {
@@ -125,10 +127,16 @@ const routes = [
     component:BookDetail
   },
   {
-    path:'user-edit',
+    path:'/user-edit',
     name:'userEdit',
     meta:{index:1},
     component:UserEdit
+  },
+  {
+    path:'/read-history',
+    name:'readHistory',
+    meta:{index:1},
+    component:ReadHistory
   }
 ]
 const router = new VueRouter({
@@ -137,7 +145,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to,from,next)=>{
-  if(to.path === 'user-edit'){
+  if(to.path === '/user-edit' || to.path === '/read-history' || to.path === '/vip'){
     if(store.state.userId !== ''){
       next()
     }else{

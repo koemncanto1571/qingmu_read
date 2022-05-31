@@ -97,7 +97,7 @@ export default {
     },
     birthdayClickFn () {
       this.dateTimePickerShow = true
-      // this.currentDate = new Date(this.profile.userbir)
+      this.currentDate = new Date(this.profile.userbir)
       // console.log(this.currentDate);
     },
     dateTimePickerFn () {

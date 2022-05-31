@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import {addBook,getAllbookshelf} from "@/api/index.js"
+import {addBook,getUserBookShelf} from "@/api/index.js"
 import { Toast } from 'vant';
 export default {
   data() {
@@ -93,7 +93,7 @@ export default {
       value: 50,
       book:[],
       bookshelf:[],
-      isAdd:true
+      isAdd:false
     };
   },
   methods: {
@@ -119,7 +119,9 @@ export default {
     console.log(this.$route);
     this.book = this.$route.params.obj
     console.log(this.book);
-    const res = await getAllbookshelf()
+    const res = await getUserBookShelf({
+      id:this.$store.state.userId
+    })
     this.bookshelf = res.data
     this.isAdd = this.bookshelf.some(item=>item.bookid === this.book.id)
   },

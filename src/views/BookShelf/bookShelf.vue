@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import {getAllbookshelf,deleteBookAPI,getBookInfoAPI} from "@/api/index.js"
+import {getAllbookshelf,deleteBookAPI,getBookInfoAPI,getUserBookShelf} from "@/api/index.js"
 import { Toast } from 'vant';
 import TabList from "@/components/TabList"
 export default {
@@ -117,13 +117,17 @@ methods:{
   }
 },
 async created() {
-  const res = await getAllbookshelf()
-  this.allBookshelf = res.data
+  // const res = await getAllbookshelf()
+  // this.allBookshelf = res.data
   const res2 = await getBookInfoAPI()
   this.allBook = res2.data
   if(this.$store.state.userId !== ''){
     this.isLoading = true
   }
+  const res3 = await getUserBookShelf({
+    id:this.$store.state.userId
+  })
+  this.allBookshelf = res3.data
 },
 beforeCreate () {
     this.$nextTick(()=>{

@@ -89,14 +89,14 @@ export default {
 
     const res = await getHotBookAPI()
     this.hotBookList = res.data
-    // console.log(this.hotBookList);
+    console.log(this.hotBookList);
 
     const res2 = await getRankImgAPI()
     this.rankImg = res2.data
     // console.log(this.rankImg);
     const res3 = await getBookInfoAPI()
     this.allBook = res3.data
-    console.log(this.allBook);
+    // console.log(this.allBook);
   },
   methods:{
     navToDetail(id){

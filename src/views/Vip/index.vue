@@ -6,16 +6,16 @@
     <div class="user-card">
       <div class="user-info">
         <div class="user-photo">
-          <img src="./images/头像.png" alt="">
+          <img :src="userInfo.head" alt="">
         </div>
         <div class="user-name">
-          <span>蜡笔小新</span>
-          <div>开通会员，百万书籍免费读</div>
+          <span>{{userInfo.nickname}}</span>
+          <div>{{vipText}}</div>
         </div>
       </div>
       <div class="card-text">
         <span>开通会员，每月可省50元</span>
-        <div>立即开通</div>
+        <div>{{isVip}}</div>
       </div>
     </div>
     <div class="vip-rights">
@@ -36,7 +36,7 @@
         套餐选择
       </div>
       <div class="choice-list">
-        <div class="choice-item" v-for="(item,index) in choiceList" :key="index" :class="{'choice-active':index === choiceActive}" @click="choiceActive = index">
+        <div class="choice-item" v-for="(item,index) in choiceList" :key="index" :class="[index===choiceActive?'choice-active':'']" @click="choiceActive = index">
           <div class="choice-type">
             {{item.text}}
           </div>
@@ -82,7 +82,7 @@
             适用无理由退换规定。 </span>
         </div>
       </div>
-      <div class="pay-btn">
+      <div class="pay-btn" @click="payFn">
         立即支付{{choiceList[choiceActive].price}}订购
       </div>
     </div>
@@ -91,9 +91,14 @@
 </template>
 
 <script>
+import { Dialog } from 'vant';
+import {findUserAPI} from "@/api/index.js"
 export default {
   data() {
     return {
+      vipText:'开通会员，百万书籍免费读',
+      isVip:'立即开通',
+      userInfo:[],
       choiceActive:0,
        radio: '1',
       rightsList:[
@@ -162,8 +167,27 @@ export default {
   methods:{
     onClickLeft(){
       this.$router.go(-1)
-    }
-  }
+    },
+    payFn(){
+      Dialog.confirm({
+        title: '开通会员',
+        message: '确定支付并开通会员吗？',
+    }).then(() => {
+      this.isVip = '续费会员'
+      this.vipText = '尊敬的VIP会员'
+      })
+      .catch(() => {
+        // on cancel
+      });
+        }
+      },
+  async created() {
+    const res = await findUserAPI({
+      id:this.$store.state.userId
+    })
+    this.userInfo = res.data
+    console.log(this.userInfo);
+  },
 }
 </script>
 
@@ -189,6 +213,8 @@ export default {
     .user-photo{
       width: 50px;
       height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
       img{
         width: 100%;
       }

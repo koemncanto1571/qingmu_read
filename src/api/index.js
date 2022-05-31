@@ -51,7 +51,7 @@ export const getUserInfoAPI = ()=> request({
 
 export const getPhoneVerification = (telephone)=> request({
   url:'/readinfo/smsSend',
-  method:'post',
+  method:'get',
   params:{
     telephone
   }
@@ -127,4 +127,32 @@ export const loginByPhoneAPI = ({phone,code})=> request({
     telephoneLogin:phone,
     verifyCodeLogin:code
   }
+})
+
+export const getUserBookShelf = ({id}) => request({
+  url:'/readinfo/findId',
+  method:'post',
+  params:{
+    userid:id
+  }
+})
+
+export const getReadHistory = () => request({
+  url:'/readinfo/findBrowsingHistory',
+  method:'post'
+})
+
+export const getLikeBook = ()=> request({
+  url:'/readinfo/findlikesInfo',
+  method:'post'
+})
+
+export const getReadingBook = ()=> request({
+  url:'/readinfo/findreading',
+  method:'post'
+})
+
+export const getReadDoneBook = ()=> request({
+  url:'/readinfo/findAfterRead',
+  method:'post'
 })
