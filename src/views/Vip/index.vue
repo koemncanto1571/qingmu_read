@@ -36,13 +36,13 @@
         套餐选择
       </div>
       <div class="choice-list">
-        <div class="choice-item" v-for="(item,index) in choiceList" :key="index" :class="[index===choiceActive?'choice-active':'']" @click="choiceActive = index">
+        <div class="choice-item" v-for="(item,index) in choiceList" :key="index" :class="[index===choiceActive?'choice-active':'']" @click="choiceFn(item,index)">
           <div class="choice-type">
-            {{item.text}}
+            {{item.timetype}}
           </div>
           <span><span>￥</span>{{item.price}}</span>
-          <div class="o-price" v-if="item.originalPrice">
-            {{item.originalPrice}}
+          <div class="o-price" v-if="item.originalprice">
+            {{item.originalprice}}
           </div>
         </div>
       </div>
@@ -82,8 +82,8 @@
             适用无理由退换规定。 </span>
         </div>
       </div>
-      <div class="pay-btn" @click="payFn">
-        立即支付{{choiceList[choiceActive].price}}订购
+      <div class="pay-btn" @click="payFn(choiceList[choiceActive])">
+        立即支付{{choicePay}}订购
       </div>
     </div>
   </div>
@@ -92,15 +92,17 @@
 
 <script>
 import { Dialog } from 'vant';
-import {findUserAPI} from "@/api/index.js"
+import {findUserAPI,getVipType,addVip} from "@/api/index.js"
 export default {
   data() {
     return {
-      vipText:'开通会员，百万书籍免费读',
-      isVip:'立即开通',
+      vipText:'',
+      isVip:'',
       userInfo:[],
       choiceActive:0,
        radio: '1',
+       choiceList:[],
+       choicePay:'',
       rightsList:[
           {
             src:require("./images/AD.png"),
@@ -119,32 +121,6 @@ export default {
             text:'会员书籍'
           }
         ],
-      choiceList:[
-        {
-          text:'1天',
-          price:0.88
-        },
-        {
-          text:'周卡',
-          price:5.88,
-          originalPrice:7.00
-        },
-        {
-          text:'月卡',
-          price:10.88,
-          originalPrice:12.00
-        },
-        {
-          text:'季卡',
-          price:25.88,
-          originalPrice:30.00
-        },
-        {
-          text:'年卡',
-          price:98.88,
-          originalPrice:100.00
-        }
-      ],
       payList:[
         {
           payImg:require("./images/支付宝.png"),
@@ -168,13 +144,23 @@ export default {
     onClickLeft(){
       this.$router.go(-1)
     },
-    payFn(){
+    choiceFn(item,index){
+      this.choiceActive = index
+      this.choicePay = item.price
+    },
+    payFn(item){
       Dialog.confirm({
         title: '开通会员',
         message: '确定支付并开通会员吗？',
-    }).then(() => {
+    }).then(async(item) => {
       this.isVip = '续费会员'
       this.vipText = '尊敬的VIP会员'
+      const res = await addVip({
+        type:item.timetype,
+        typeid:item.typeid,
+        userid:this.$store.state.userId
+      })
+      console.log(res);
       })
       .catch(() => {
         // on cancel
@@ -186,7 +172,16 @@ export default {
       id:this.$store.state.userId
     })
     this.userInfo = res.data
-    console.log(this.userInfo);
+    if(res.data.vip !== null){
+      this.isVip = '续费会员',
+      this.vipText = '尊敬的VIP会员'
+    }
+    // console.log(this.userInfo);
+
+    const res2 = await getVipType()
+    this.choiceList = res2.data
+    this.choicePay = this.choiceList[0].price
+    console.log(this.choiceList);
   },
 }
 </script>

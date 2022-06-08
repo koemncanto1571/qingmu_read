@@ -12,14 +12,14 @@
         <span>本机号码</span>
         <span>198******8890</span>
       </div>
-      <div class="login-submit">
+      <div class="login-submit" @click="loginFn">
         本机号码一键登录
       </div>
       <router-link class="login-verify" to="/login-mobile">
         验证码或密码登录
       </router-link>
       <div class="login-select">
-        <input type="checkbox">
+        <input type="checkbox" v-model="isAffirm">
         <span>我已同意<span>中国移动认证协议条款</span>及<span>隐私政策用户协议</span></span>
       </div>
     </div>
@@ -27,8 +27,39 @@
 </template>
 
 <script>
+import {loginAccountAPI} from "@/api/index.js"
+import { mapMutations } from 'vuex'
+import { Toast } from 'vant';
   export default {
     name:'login',
+    data() {
+      return {
+        isAffirm:false
+      }
+    },
+    methods:{
+      ...mapMutations(['SET_USERID']),
+     async loginFn(){
+       if(this.isAffirm){
+         const res = await loginAccountAPI({
+         account:'9999',
+         password:'123456'
+       })
+       Toast.success('登录成功！即将跳转到个人页')
+       this.SET_USERID(res.data.data.userid)
+       setTimeout(()=>{
+         this.$router.push({
+           name:'User',
+           params:{
+             id:res.data.data.userid
+           }
+         })
+       },2000)
+       }else{
+         Toast.fail('请选勾选用户协议');
+       }
+      }
+    }
   }
 </script>
 

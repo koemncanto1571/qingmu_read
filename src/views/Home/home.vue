@@ -88,7 +88,10 @@ export default {
     console.log(this.recommendList);
 
     const res = await getHotBookAPI()
-    this.hotBookList = res.data
+    // this.hotBookList = res.data
+    for(let i =0;i<6;i++){
+      this.hotBookList[i] = res.data[Math.round(Math.random()*res.data.length)]
+    }
     console.log(this.hotBookList);
 
     const res2 = await getRankImgAPI()
@@ -97,6 +100,13 @@ export default {
     const res3 = await getBookInfoAPI()
     this.allBook = res3.data
     // console.log(this.allBook);
+  },
+  async mounted() {
+    const res = await getHotBookAPI()
+    // this.hotBookList = res.data
+    for(let i =0;i<6;i++){
+      this.hotBookList[i] = res.data[Math.round(Math.random()*res.data.length)]
+    }
   },
   methods:{
     navToDetail(id){

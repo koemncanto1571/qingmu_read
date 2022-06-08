@@ -5,7 +5,7 @@
       有关 "<span>{{$route.params.keywords}}</span>" 的搜索结果
     </div>
     <div class="search-content">
-      <div class="search-item" v-for="(item,index) in searchResult" :key="index">
+      <div class="search-item" v-for="(item,index) in searchResult" :key="index" @click="navToDetail(item)">
         <div class="search-cover">
           <img :src="item.cover" alt="">
         </div>
@@ -33,9 +33,20 @@ export default {
     onCancel(){
       this.$router.replace('/search')
     },
-    enterFn(){
+   async enterFn(){
       this.$router.push({
         path:`/search-result/${this.value}`
+      })
+      this.value = this.$route.params.keywords
+    const res = await SearchAPI(this.value)
+    this.searchResult = res.data
+    },
+    navToDetail(obj){
+      this.$router.push({
+         name:"bookDetail",
+         params:{
+           obj
+         }
       })
     }
   },
@@ -44,7 +55,7 @@ export default {
     const res = await SearchAPI(this.value)
     this.searchResult = res.data
     console.log(this.searchResult);
-  },
+  }
 }
 </script>
 

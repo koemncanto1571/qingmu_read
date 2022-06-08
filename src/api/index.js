@@ -1,4 +1,5 @@
 import request from "@/utils/request.js";
+import type from "postcss-pxtorem/lib/type";
 import store from "../store";
 export const getBookInfoAPI = ()=> request({
   url:'/readinfo/book',
@@ -155,4 +156,19 @@ export const getReadingBook = ()=> request({
 export const getReadDoneBook = ()=> request({
   url:'/readinfo/findAfterRead',
   method:'post'
+})
+
+export const getVipType = ()=> request({
+  url:'/readinfo/findmemType',
+  method:'post'
+})
+
+export const addVip = ({type,typeid,userid})=> request({
+  url:'/readinfo/addmembers',
+  method:'post',
+  params:{
+    timetype:type,
+    typeid:typeid,
+    userid:userid
+  }
 })

@@ -81,7 +81,7 @@ data() {
   }
 },
 methods:{
- async addBook(){
+  addBook(){
    this.$router.push('/home')
   },
   editFn(){
