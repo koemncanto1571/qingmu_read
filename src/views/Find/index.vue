@@ -2,7 +2,7 @@
   <div>
     <div class="big-box">
       <div class="gz">
-        <router-link class="gz1" to="/find/circles">关注</router-link>
+        <router-link class="gz1" to="/find/attention">关注</router-link>
         <router-link class="gz1" to="/find">广场</router-link>
         <router-link class="gz1" to="/find/circles">圈子</router-link>
         <router-link class="gz1" to="/find/topic">话题</router-link>
@@ -32,6 +32,7 @@ components:{TabList}
   
 }
 .gz{
+    font-size: 16px;
     padding-top: 31.5px;
     display: flex;
 }

@@ -21,6 +21,8 @@ import Register from "@/views/Login/register.vue"
 import Search from "@/views/Search/index.vue"
 import SearchResult from "@/views/Search/SearchResult.vue"
 import ReadHistory from "@/views/ReadHistory/index.vue"
+import Attention from "@/views/Find/attention.vue"
+import VoucherCenter from "@/views/VoucherCenter/index.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -90,18 +92,23 @@ const routes = [
     redirect:'/find/square',
     children:[
       {
+        path:'attention',
+        meta:{isNav:1,active:3},
+        component:Attention
+      },
+      {
         path:'circles',
-        meta:{isNav:1},
+        meta:{isNav:1,active:3},
         component:Circles
       },
       {
         path:'topic',
-        meta:{isNav:1},
+        meta:{isNav:1,active:3},
         component:Topic
       },
       {
         path:'square',
-        meta:{isNav:1},
+        meta:{isNav:1,active:3},
         component:Square
       }
     ]
@@ -137,11 +144,16 @@ const routes = [
     name:'readHistory',
     meta:{index:1},
     component:ReadHistory
+  },
+  {
+    path:'/voucher-center',
+    meta:{index:1},
+    component:VoucherCenter
   }
 ]
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+  // mode: 'history',
+  // base: process.env.BASE_URL,
   routes
 })
 router.beforeEach((to,from,next)=>{

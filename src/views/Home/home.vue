@@ -11,10 +11,10 @@
       </div>
       <div class="banner">
         <van-swipe class="my-swipe" :autoplay="2000" indicator-color="white">
-          <van-swipe-item><img src="https://s2.loli.net/2022/05/14/VqYQdUZrIWnSvL8.jpg" alt=""></van-swipe-item>
-          <van-swipe-item><img src="https://s2.loli.net/2022/05/14/MHSvUfNpmeRiTGD.jpg" alt=""></van-swipe-item>
+          <van-swipe-item v-for="(item,index) in banner" :key="index"><img :src="item.print" alt=""></van-swipe-item>
+          <!-- <van-swipe-item><img src="https://s2.loli.net/2022/05/14/MHSvUfNpmeRiTGD.jpg" alt=""></van-swipe-item>
           <van-swipe-item><img src="https://s2.loli.net/2022/05/14/lg8H6xoEQXIGSnf.png" alt=""></van-swipe-item>
-          <van-swipe-item><img src="https://s2.loli.net/2022/05/14/QsIAVfUkd6mtbBu.png" alt=""></van-swipe-item>
+          <van-swipe-item><img src="https://s2.loli.net/2022/05/14/QsIAVfUkd6mtbBu.png" alt=""></van-swipe-item> -->
         </van-swipe>
       </div>
       <div class="list">
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import {getRecommendAPI,getHotBookAPI,getRankImgAPI,getBookInfoAPI} from "@/api/index.js"
+import {getRecommendAPI,getHotBookAPI,getRankImgAPI,getBookInfoAPI,getHomeBanner} from "@/api/index.js"
 import NavList from "@/components/NavList"
 import TabList from "@/components/TabList"
 export default {
@@ -75,10 +75,19 @@ export default {
   },
   data() {
     return {
+      banner:[],
       active: 0,
       allBook:[],
-      recommendList:[],
-      hotBookList:[],
+      recommendList:[
+        {
+          cover:''
+        }
+      ],
+      hotBookList:[
+        {
+          cover:''
+        }
+      ],
       rankImg:[],
     };
   },
@@ -100,8 +109,11 @@ export default {
     const res3 = await getBookInfoAPI()
     this.allBook = res3.data
     // console.log(this.allBook);
+
+    const res4 = await getHomeBanner()
+    this.banner = res4.data
   },
-  async mounted() {
+  async updated() {
     const res = await getHotBookAPI()
     // this.hotBookList = res.data
     for(let i =0;i<6;i++){

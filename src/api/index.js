@@ -1,5 +1,4 @@
 import request from "@/utils/request.js";
-import type from "postcss-pxtorem/lib/type";
 import store from "../store";
 export const getBookInfoAPI = ()=> request({
   url:'/readinfo/book',
@@ -50,11 +49,11 @@ export const getUserInfoAPI = ()=> request({
   method:'post'
 })
 
-export const getPhoneVerification = (telephone)=> request({
+export const getPhoneVerification = (phone)=> request({
   url:'/readinfo/smsSend',
-  method:'get',
+  method:'post',
   params:{
-    telephone
+    phone
   }
 })
 
@@ -126,7 +125,7 @@ export const loginByPhoneAPI = ({phone,code})=> request({
   method:'post',
   params:{
     telephoneLogin:phone,
-    verifyCodeLogin:code
+    smsCode:code
   }
 })
 
@@ -171,4 +170,21 @@ export const addVip = ({type,typeid,userid})=> request({
     typeid:typeid,
     userid:userid
   }
+})
+
+export const addReadHis = ({bookid,bookname,cover,intro,userid})=> request({
+  url:'/readinfo/addBrowsing',
+  method:'post',
+  data:{
+    bookid:bookid,
+    bookname:bookname,
+    cover:cover,
+    introduction:intro,
+    userid:userid
+  }
+})
+
+export const getHomeBanner = ()=> request({
+  url:'/readinfo/carousel',
+  method:'get'
 })

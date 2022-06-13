@@ -43,6 +43,7 @@
 
 <script>
 import { Toast } from 'vant';
+import { mapMutations } from 'vuex'
 import { getPhoneVerification,loginByPhoneAPI } from "@/api/index.js"
 export default {
   name: "login-mobile",
@@ -56,6 +57,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['SET_USERID']),
     async codeFn() {
         //   const reg = /^1[3-9]\d{9}$/
         //   if(reg.test(this.telephone) === true){
@@ -85,6 +87,18 @@ export default {
             phone:this.telephone,
             code:this.code
           })
+          if(res.status === 200){
+            this.SET_USERID(res.data.data.userid)
+            Toast.success('登录成功！即将跳转到个人页')
+            setTimeout(()=>{
+            this.$router.push({
+              name:'User',
+              params:{
+                id:res.data.data.userid
+              }
+            })
+          },2000)
+          }
           console.log(res);
         }else{
           Toast.fail('请选勾选用户协议');

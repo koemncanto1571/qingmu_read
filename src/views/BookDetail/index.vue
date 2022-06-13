@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import {addBook,getUserBookShelf} from "@/api/index.js"
+import {addBook,getUserBookShelf,addReadHis} from "@/api/index.js"
 import { Toast } from 'vant';
 export default {
   data() {
@@ -125,6 +125,16 @@ export default {
     this.bookshelf = res.data
     this.isAdd = this.bookshelf.some(item=>item.bookid === this.book.id)
   },
+ async mounted() {
+  const res = await addReadHis({
+    bookid:this.book.id,
+    bookname:this.book.name,
+    cover:this.book.cover,
+    intro:this.book.intro,
+    userid:this.$store.state.userId
+  })
+  console.log(res);
+ }, 
 }
 </script>
 

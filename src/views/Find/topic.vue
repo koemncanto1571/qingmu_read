@@ -40,17 +40,17 @@
         </div>
         <div class="dot">
           <div class="dot1">
-            <img src="./images/点赞.png" width="100%" alt="">
+            <img src="./images/点赞.png" alt="">
           </div>
-          <div class="dot2">1176</div>
+          <div class="dot2">{{this.numberr[0].articleid}}</div>
           <div class="dot1">
-            <img src="./images/收藏.png" width="100%" alt="">
+            <img src="./images/收藏.png" alt="">
           </div>
-          <div class="dot2">116</div>
+          <div class="dot2">{{this.numberr[0].article}}</div>
           <div class="dot1">
-            <img src="./images/分享.png" width="100%" alt="">
+            <img src="./images/分享.png" alt="">
           </div>
-          <div class="dot2">431</div>
+          <div class="dot2">{{this.numberr[0].pictureurl}}</div>
         </div>
         <div class="evaluate">
           <div class="evaluate1"><img src="./images/1.png" width="100%" alt=""></div>
@@ -82,10 +82,33 @@
 </template>
 
 <script>
+import axios from "axios";
 import TabList from "@/components/TabList/index.vue"
 export default {
+  data() {
+    return {
+        numberr:[
+          {
+            articleid:''
+          }
+        ]
+    }
+  },
 name:'detect',
-components:{TabList}
+components:{TabList},
+  created() {
+    axios({
+      method: "get",
+      url: "http://124.223.191.233:8090/readinfo/findguangchang",
+      params: {},
+    }).then( (res)=> {
+      console.log(res);
+      this.numberr = res.data
+      console.log(this.numberr[0].pictureremark);
+    }).catch((err)=>{
+console.log('失败');
+    });
+  },
 }
 </script>
 
@@ -185,6 +208,10 @@ components:{TabList}
     width: 22px;
     height: 22px;
     margin-left: 12px;
+}
+.dot1 img{
+  width: 100%;
+  height: 100%;
 }
 .dot2{
     font-size: 12px;

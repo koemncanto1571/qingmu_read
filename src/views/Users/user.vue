@@ -39,9 +39,9 @@
           <router-link class="function-item user-choose" to="/vip">
             阅读VIP
           </router-link>
-          <div class="function-item">
+          <router-link class="function-item" to="/voucher-center">
             充值中心
-          </div>
+          </router-link>
         </div>
       </div>
       <div class="info-card">
