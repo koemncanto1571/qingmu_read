@@ -9,56 +9,58 @@
         </div>
         <div class="search-btn"></div>
       </div>
-      <div class="banner">
-        <van-swipe class="my-swipe" :autoplay="2000" indicator-color="white">
-          <van-swipe-item v-for="(item,index) in banner" :key="index"><img :src="item.print" alt=""></van-swipe-item>
-          <!-- <van-swipe-item><img src="https://s2.loli.net/2022/05/14/MHSvUfNpmeRiTGD.jpg" alt=""></van-swipe-item>
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh" class="index-content">
+        <div class="banner">
+          <van-swipe class="my-swipe" :autoplay="2000" indicator-color="white">
+            <van-swipe-item v-for="(item,index) in banner" :key="index"><img :src="item.print" alt=""></van-swipe-item>
+            <!-- <van-swipe-item><img src="https://s2.loli.net/2022/05/14/MHSvUfNpmeRiTGD.jpg" alt=""></van-swipe-item>
           <van-swipe-item><img src="https://s2.loli.net/2022/05/14/lg8H6xoEQXIGSnf.png" alt=""></van-swipe-item>
           <van-swipe-item><img src="https://s2.loli.net/2022/05/14/QsIAVfUkd6mtbBu.png" alt=""></van-swipe-item> -->
-        </van-swipe>
-      </div>
-      <div class="list">
-        <div class="list-item" v-for="(item,index) in rankImg" :key="index">
-          <img :src="item.print" alt="">
-          <span>{{item.name}}</span>
+          </van-swipe>
         </div>
-      </div>
-      <div class="recommend">
-        <div class="recommend-item">
-          <div class="item-title">
-            <span>推荐书籍</span>
-            <div class="more">
-              更多>
-            </div>
+        <div class="list">
+          <div class="list-item" v-for="(item,index) in rankImg" :key="index">
+            <img :src="item.print" alt="">
+            <span>{{item.name}}</span>
           </div>
-          <div class="item-content">
-            <div class="content-item" v-for="(item,index) in recommendList" :key="index" @click="navToDetail(item.id)">
-              <div>
-                <img :src="item.cover" alt="">
+        </div>
+        <div class="recommend">
+          <div class="recommend-item">
+            <div class="item-title">
+              <span>推荐书籍</span>
+              <div class="more">
+                更多>
               </div>
-              <span>{{ item.name }}</span>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="recommend">
-        <div class="recommend-item">
-          <div class="item-title">
-            <span>热门书籍</span>
-            <div class="more">
-              更多>
-            </div>
-          </div>
-          <div class="item-content">
-            <div class="content-item" v-for="(item,index) in hotBookList" :key="index" @click="navToDetail(item.id)">
-              <div>
-                <img :src="item.cover" alt="">
+            <div class="item-content">
+              <div class="content-item" v-for="(item,index) in recommendList" :key="index" @click="navToDetail(item.id)">
+                <div>
+                  <img :src="item.cover" alt="">
+                </div>
+                <span>{{ item.name }}</span>
               </div>
-              <span>{{ item.name }}</span>
             </div>
           </div>
         </div>
-      </div>
+        <div class="recommend">
+          <div class="recommend-item">
+            <div class="item-title">
+              <span>热门书籍</span>
+              <div class="more">
+                更多>
+              </div>
+            </div>
+            <div class="item-content">
+              <div class="content-item" v-for="(item,index) in hotBookList" :key="index" @click="navToDetail(item.id)">
+                <div>
+                  <img :src="item.cover" alt="">
+                </div>
+                <span>{{ item.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </van-pull-refresh>
     </div>
     <TabList></TabList>
   </div>
@@ -75,13 +77,14 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       banner:[],
       active: 0,
       allBook:[],
       recommendList:[
         {
           cover:''
-        }
+        },
       ],
       hotBookList:[
         {
@@ -93,15 +96,24 @@ export default {
   },
   async created() {
     const {data} = await getRecommendAPI()
+    data.sort(function(){
+      return (0.5-Math.random())
+    })
     this.recommendList = data
-    console.log(this.recommendList);
+    this.recommendList.length = 6
+    // for(let i =0;i<6;i++){
+    //   this.recommendList[i] = data[Math.round(Math.random()*data.length)]
+    // }
+    // console.log(this.recommendList);
 
     const res = await getHotBookAPI()
     // this.hotBookList = res.data
-    for(let i =0;i<6;i++){
-      this.hotBookList[i] = res.data[Math.round(Math.random()*res.data.length)]
-    }
-    console.log(this.hotBookList);
+    res.data.sort(function(){
+      return (0.5-Math.random())
+    })
+    this.hotBookList = res.data
+    this.hotBookList.length = 6
+    // console.log(this.hotBookList);
 
     const res2 = await getRankImgAPI()
     this.rankImg = res2.data
@@ -112,13 +124,6 @@ export default {
 
     const res4 = await getHomeBanner()
     this.banner = res4.data
-  },
-  async updated() {
-    const res = await getHotBookAPI()
-    // this.hotBookList = res.data
-    for(let i =0;i<6;i++){
-      this.hotBookList[i] = res.data[Math.round(Math.random()*res.data.length)]
-    }
   },
   methods:{
     navToDetail(id){
@@ -134,6 +139,27 @@ export default {
       this.$router.push({
         path:'/search'
       })
+    },
+    async onRefresh(){
+      setTimeout(async ()=>{
+        this.recommendList = []
+        this.hotBookList = []
+        const {data} = await getRecommendAPI()
+        data.sort(function(){
+          return (0.5-Math.random())
+        })
+        this.recommendList = data
+        this.recommendList.length = 6
+        const res = await getHotBookAPI()
+        // this.hotBookList = res.data
+        res.data.sort(function(){
+          return (0.5-Math.random())
+        })
+        this.hotBookList = res.data
+        this.hotBookList.length = 6
+        console.log(this.hotBookList);
+        this.isLoading = false
+      },500)
     }
   }
 }
@@ -184,6 +210,7 @@ export default {
     }
 
     .banner {
+      margin-left: 15px;
       margin-top: 10px;
       width: 344px;
       height: 105px;
@@ -192,6 +219,7 @@ export default {
       z-index: -99;
       .my-swipe{
         height: 100%;
+        z-index: -99;
       }
     }
 
@@ -201,6 +229,7 @@ export default {
     }
 
     .list {
+      z-index: -99;
       margin-top: 18px;
       width: 375px;
       justify-content: space-between;
@@ -242,6 +271,7 @@ export default {
     }
 
     .item-title {
+      padding: 0 15px;
       margin-bottom: 16px;
       width: 100%;
       display: flex;
@@ -264,17 +294,20 @@ export default {
     }
 
     .item-content {
+      padding-bottom: 10px;
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
+      // align-items: center;
       justify-content: space-around;
       width: 345px;
-      height: 314px;
+      // height: 320px;
       background-color: rgba(200, 208, 200, 0.5);
       border-radius: 10px;
     }
 
     .content-item {
+      margin-top: 10px;
+      // margin-bottom: 10px;
       width: 30%;
       display: flex;
       flex-direction: column;

@@ -3,9 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import "amfe-flexible"
-import {Tab, Tabs,Notify,Dialog,Tag,Card,Search,Uploader,Popup,DatetimePicker,Icon,Tabbar, TabbarItem,NavBar,RadioGroup, Radio,Swipe, SwipeItem,Badge,Slider,Toast,Cell, CellGroup,Image as VanImage,CountDown,Field,Button,Form,Picker } from 'vant';
+import {PullRefresh,Tab, Tabs,Notify,Dialog,Tag,Card,Search,Uploader,Popup,DatetimePicker,Icon,Tabbar, TabbarItem,NavBar,RadioGroup, Radio,Swipe, SwipeItem,Badge,Slider,Toast,Cell, CellGroup,Image as VanImage,CountDown,Field,Button,Form,Picker } from 'vant';
 import directiveObj from "@/utils/directive.js"
 
+Vue.use(PullRefresh)
 
 Vue.use(Tab);
 Vue.use(Tabs);

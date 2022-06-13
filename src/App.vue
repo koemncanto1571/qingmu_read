@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <router-view></router-view>
+      <keep-alive include="index">
+        <router-view></router-view>
+      </keep-alive>
     </transition>
     <TabList v-if="this.$route.meta.isNav === 1"></TabList>
   </div>

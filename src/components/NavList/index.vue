@@ -47,6 +47,7 @@ data() {
 
 <style>
   .nav {
+      z-index: 99;
       position: fixed;
       top: 0;
       width: 100%;
