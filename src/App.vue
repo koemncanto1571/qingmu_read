@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <keep-alive include="index">
+      <keep-alive :include="aliveList">
         <router-view></router-view>
       </keep-alive>
     </transition>
@@ -15,7 +15,8 @@ import TabList from "@/components/TabList/index.vue"
     components:{TabList},
     data() {
 			return {
-				transitionName: ''
+				transitionName: '',
+				aliveList:['index']
 			}
 		},
 		watch: { //使用watch 监听$router的变化
@@ -39,6 +40,9 @@ import TabList from "@/components/TabList/index.vue"
 		},
     created() {
       // console.log(this.$route);
+			if(this.$store.state.userId !== ''){
+				this.aliveList.push('user')
+			}
     }
   }
 </script>

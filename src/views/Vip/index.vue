@@ -96,8 +96,8 @@ import {findUserAPI,getVipType,addVip} from "@/api/index.js"
 export default {
   data() {
     return {
-      vipText:'',
-      isVip:'',
+      vipText:'开通会员',
+      isVip:'立即开通会员',
       userInfo:[],
       choiceActive:0,
        radio: '1',
@@ -152,14 +152,14 @@ export default {
       Dialog.confirm({
         title: '开通会员',
         message: '确定支付并开通会员吗？',
-    }).then(async(item) => {
-      this.isVip = '续费会员'
-      this.vipText = '尊敬的VIP会员'
+    }).then(async() => {
       const res = await addVip({
         type:item.timetype,
         typeid:item.typeid,
         userid:this.$store.state.userId
       })
+      this.isVip = '续费会员'
+      this.vipText = '尊敬的VIP会员'
       console.log(res);
       })
       .catch(() => {
@@ -172,7 +172,7 @@ export default {
       id:this.$store.state.userId
     })
     this.userInfo = res.data
-    if(res.data.vip !== null){
+    if(res.data.vip === true){
       this.isVip = '续费会员',
       this.vipText = '尊敬的VIP会员'
     }

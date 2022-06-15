@@ -103,8 +103,10 @@ methods:{
     Toast.success('删除成功');
   },
   navToDetail(id){
+    // console.log(this.allBook,id);
     if(this.edit === '编辑'){
-      const obj = this.allBook.filter(item=>item.id === id)
+      const obj = this.allBook.filter(item=>item.id == id)
+      console.log(obj);
       this.$router.push({
       name:'bookDetail',
       params:{
@@ -128,6 +130,8 @@ async created() {
     id:this.$store.state.userId
   })
   this.allBookshelf = res3.data
+  // console.log(this.allBook);
+  // console.log(this.allBookshelf);
 },
 beforeCreate () {
     this.$nextTick(()=>{

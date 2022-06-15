@@ -2,12 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import turn from '@/utils/turn.js'
 import "amfe-flexible"
-import {PullRefresh,Tab, Tabs,Notify,Dialog,Tag,Card,Search,Uploader,Popup,DatetimePicker,Icon,Tabbar, TabbarItem,NavBar,RadioGroup, Radio,Swipe, SwipeItem,Badge,Slider,Toast,Cell, CellGroup,Image as VanImage,CountDown,Field,Button,Form,Picker } from 'vant';
+import {SwipeCell ,PullRefresh,Tab, Tabs,Notify,Dialog,Tag,Card,Search,Uploader,Popup,DatetimePicker,Icon,Tabbar, TabbarItem,NavBar,RadioGroup, Radio,Swipe, SwipeItem,Badge,Slider,Toast,Cell, CellGroup,Image as VanImage,CountDown,Field,Button,Form,Picker } from 'vant';
 import directiveObj from "@/utils/directive.js"
 
+Vue.use(SwipeCell);
 Vue.use(PullRefresh)
-
+Vue.use(turn)
 Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Picker);

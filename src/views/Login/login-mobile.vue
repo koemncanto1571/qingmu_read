@@ -44,7 +44,7 @@
 <script>
 import { Toast } from 'vant';
 import { mapMutations } from 'vuex'
-import { getPhoneVerification,loginByPhoneAPI } from "@/api/index.js"
+import { getPhoneVerification,loginByPhoneAPI,registerPhone } from "@/api/index.js"
 export default {
   name: "login-mobile",
   data() {
@@ -61,6 +61,7 @@ export default {
     async codeFn() {
         //   const reg = /^1[3-9]\d{9}$/
         //   if(reg.test(this.telephone) === true){
+        const res2 = await registerPhone(this.telephone,this.code)
         const res = await getPhoneVerification(this.telephone)
         console.log(res);
         if (res.status === 200) {

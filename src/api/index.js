@@ -188,3 +188,20 @@ export const getHomeBanner = ()=> request({
   url:'/readinfo/carousel',
   method:'get'
 })
+
+export const deleteHistory = ({bookid})=> request({
+  url:'/readinfo/delBrowsing',
+  method:'post',
+  params:{
+    bookid:bookid
+  }
+})
+
+export const registerPhone = (phone,smsCode)=> request({
+  url:'/readinfo/signUpSms',
+  method:'get',
+  params:{
+    phone,
+    smsCode
+  }
+})
